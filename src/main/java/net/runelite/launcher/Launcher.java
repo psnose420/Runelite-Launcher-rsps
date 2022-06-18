@@ -94,7 +94,7 @@ import org.slf4j.LoggerFactory;
 @Slf4j
 public class Launcher
 {
-	private static final File RUNELITE_DIR = new File(System.getProperty("user.home"), ".test");
+	private static final File RUNELITE_DIR = new File(System.getProperty("user.home"), ".runelite");
 	public static final File LOGS_DIR = new File(RUNELITE_DIR, "logs");
 	private static final File REPO_DIR = new File(RUNELITE_DIR, "repository2");
 	public static final File CRASH_FILES = new File(LOGS_DIR, "jvm_crash_pid_%p.log");
@@ -191,10 +191,6 @@ public class Launcher
 
 			log.info("Setting hardware acceleration to {}", hardwareAccelerationMode);
 			jvmProps.addAll(hardwareAccelerationMode.toParams(OS.getOs()));
-
-			// Always use IPv4 over IPv6
-			jvmProps.add("-Djava.net.preferIPv4Stack=true");
-			jvmProps.add("-Djava.net.preferIPv4Addresses=true");
 
 			// As of JDK-8243269 (11.0.8) and JDK-8235363 (14), AWT makes macOS dark mode support opt-in so interfaces
 			// with hardcoded foreground/background colours don't get broken by system settings. Considering the native
@@ -703,7 +699,7 @@ public class Launcher
 	private static Certificate getCertificate() throws CertificateException
 	{
 		CertificateFactory certFactory = CertificateFactory.getInstance("X.509");
-		Certificate certificate = certFactory.generateCertificate(Launcher.class.getResourceAsStream("launcher.crt"));
+		Certificate certificate = certFactory.generateCertificate(Launcher.class.getResourceAsStream("runelite.crt"));
 		return certificate;
 	}
 
